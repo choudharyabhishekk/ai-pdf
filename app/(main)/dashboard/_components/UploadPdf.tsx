@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Input } from "@/components/ui/input";
 import { api } from "@/convex/_generated/api";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { useMutation } from "convex/react";
+import { useAction, useMutation } from "convex/react";
 import { Loader2Icon } from "lucide-react";
 import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
@@ -26,6 +26,7 @@ export default function UploadPdf({ children }: { children: React.ReactNode }) {
   const [fileName, setFileName] = useState<String>("untitled");
   const getFileUrl = useMutation(api.fileStorage.getFileUrl);
   const { user } = useUser();
+  const embeddDocument = useAction(api.myActions.ingest);
 
   // file upload handler
   const onFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +58,11 @@ export default function UploadPdf({ children }: { children: React.ReactNode }) {
       fileUrl: fileUrl as string,
       createdBy: user?.primaryEmailAddress?.emailAddress as string,
     });
-    console.log(response);
+    //API call to fetch PDF data
+    const apiResponse = await fetch("/api/pdf-parser");
+    const data = await apiResponse.json();
+    console.log(data);
+    embeddDocument({});
     // set loading to false
     setLoading(false);
   };
