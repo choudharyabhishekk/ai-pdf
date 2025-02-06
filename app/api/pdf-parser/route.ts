@@ -3,11 +3,17 @@ import { NextRequest } from "next/server";
 import { WebPDFLoader } from "@langchain/community/document_loaders/web/pdf";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 
-const pdfUrl =
-  "https://vivid-puffin-316.convex.cloud/api/storage/9c21d20c-9e1c-4c3b-a6bb-bc9d0ef14cf9";
-
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
+    // get PDF file URL
+    const requestUrl = req.url;
+    const { searchParams } = new URL(requestUrl);
+    const pdfUrl = searchParams.get("pdfUrl");
+    if (!pdfUrl) {
+      throw new Error("PDF URL is missing");
+    }
+    console.log(pdfUrl);
+
     // Load PDF file
     const response: Response = await fetch(pdfUrl);
     const data: Blob = await response.blob();
