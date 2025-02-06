@@ -77,7 +77,9 @@ export default function UploadPdf({ children }: { children: React.ReactNode }) {
     <div>
       <Dialog open={dialogOpen}>
         <DialogTrigger asChild>
-          <Button onClick={() => setDialogOpen(true)}>+ Upload PDF File</Button>
+          <Button className="w-full" onClick={() => setDialogOpen(true)}>
+            + Upload PDF File
+          </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
