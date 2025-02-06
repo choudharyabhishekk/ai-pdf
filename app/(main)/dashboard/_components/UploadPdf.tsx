@@ -1,14 +1,67 @@
+"use client";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { v4 as uuidv4 } from "uuid";
 import { Input } from "@/components/ui/input";
+import { api } from "@/convex/_generated/api";
+import { DialogClose } from "@radix-ui/react-dialog";
+import { useMutation } from "convex/react";
+import { Loader2Icon } from "lucide-react";
+import { useState } from "react";
+import { useUser } from "@clerk/nextjs";
 
 export default function UploadPdf({ children }: { children: React.ReactNode }) {
+  const generateUploadUrl = useMutation(api.fileStorage.generateUploadUrl);
+  const addFileEntry = useMutation(api.fileStorage.addFilesToDb);
+  const [file, setFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [fileName, setFileName] = useState<String>("untitled");
+  const getFileUrl = useMutation(api.fileStorage.getFileUrl);
+  const { user } = useUser();
+
+  // file upload handler
+  const onFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  // upload file handler
+  const onUpload = async () => {
+    setLoading(true);
+    // Step 1: Get a short-lived upload URL
+    const postUrl = await generateUploadUrl();
+    // Step 2: POST the file to the URL
+    const result = await fetch(postUrl, {
+      method: "POST",
+      headers: file?.type ? { "Content-Type": file.type } : undefined,
+      body: file,
+    });
+    const { storageId } = await result.json();
+    const fileId = uuidv4();
+    const fileUrl = await getFileUrl({ storageId: storageId });
+
+    //Step 3: Save the newly allocated storage id to the database
+    const response = await addFileEntry({
+      fileId: fileId,
+      storageId: storageId,
+      fileName: fileName as string,
+      fileUrl: fileUrl as string,
+      createdBy: user?.primaryEmailAddress?.emailAddress as string,
+    });
+    console.log(response);
+    // set loading to false
+    setLoading(false);
+  };
+
   return (
     <div>
       <Dialog>
@@ -18,20 +71,35 @@ export default function UploadPdf({ children }: { children: React.ReactNode }) {
             <DialogTitle className="mb-2">Upload PDF file</DialogTitle>
             <DialogDescription asChild>
               <div>
-                <div className="flex gap-2 p-3 rounded-md border border-gray-200">
-                  <h2>Select a file to upload</h2>
-                  <input type="file" />
+                <h2>Select a file to upload</h2>
+                <div className="flex gap-2 mt-2 p-3 rounded-md border border-gray-200">
+                  <input
+                    type="file"
+                    accept="application/pdf"
+                    onChange={(e) => onFileSelect(e)}
+                  />
                 </div>
-                <div>
+                <div className="mt-4">
                   <label htmlFor="input">File Name *</label>
-                  <Input placeholder="File Name" />
-                </div>
-                <div>
-                  <Button></Button>
+                  <Input
+                    required
+                    placeholder="File Name"
+                    onChange={(e) => setFileName(e.target.value)}
+                  />
                 </div>
               </div>
             </DialogDescription>
           </DialogHeader>
+          <DialogFooter className="sm:justify-end">
+            <DialogClose asChild>
+              <Button type="button" variant="secondary">
+                Close
+              </Button>
+            </DialogClose>
+            <Button type="button" onClick={onUpload}>
+              {loading ? <Loader2Icon className="animate-spin" /> : "Upload"}
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

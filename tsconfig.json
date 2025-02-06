@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "convex/user.js"
+    "convex/user.ts"
   ],
   "exclude": ["node_modules"]
 }
