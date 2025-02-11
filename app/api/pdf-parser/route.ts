@@ -24,12 +24,13 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     // merge into a single string
     let pdfContent: string = "";
     docs.forEach((doc: { pageContent: string }) => {
-      pdfContent += doc.pageContent;
+      pdfContent = pdfContent + doc.pageContent;
     });
 
     // Split text into chunks
     const splitter = new RecursiveCharacterTextSplitter({
-      chunkSize: 1000,
+      // earlier this was 1000
+      chunkSize: 500,
       chunkOverlap: 20,
     });
     const output = await splitter.createDocuments([pdfContent]);

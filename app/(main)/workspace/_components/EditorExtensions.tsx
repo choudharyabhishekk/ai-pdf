@@ -17,7 +17,16 @@ import {
   Code,
   Heading1,
   Heading2,
+  Sparkle,
+  Loader,
+  BotMessageSquare,
+  Sparkles,
 } from "lucide-react";
+import { chatSession } from "@/configs/AIModel";
+import { Button } from "@/components/ui/button";
+import { useAction } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useParams } from "next/navigation";
 
 interface EditorExtensionsProps {
   editor: Editor | null;
@@ -31,6 +40,9 @@ interface MenuButtonProps {
 }
 
 const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
+  const searchAI = useAction(api.myActions.search);
+  const fileId = useParams().fileId;
+
   const setLink = useCallback(() => {
     if (!editor) return;
 
@@ -74,6 +86,41 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
     </button>
   );
 
+  const handleAIClick = async () => {
+    const selectedText = editor.state.doc.textBetween(
+      editor.state.selection.from,
+      editor.state.selection.to,
+      " "
+    );
+
+    const result = await searchAI({
+      query: selectedText,
+      fileId: fileId as string,
+    });
+    const unformattedResult = JSON.parse(result);
+    let answer = "";
+    unformattedResult &&
+      unformattedResult.forEach((item: any) => {
+        answer = answer + item.pageContent;
+      });
+    // console.log("answer:", answer);
+
+    const prompt =
+      "For question: " +
+      selectedText +
+      " and with the given content as answer, please give appropriate answer in HTML format with proper formatting and without html, head, and body tags. Also don't return the question, just provide the answer. The answer content is: " +
+      answer;
+    const aiAnswer = await chatSession.sendMessage(prompt);
+    console.log("AI Answer:", aiAnswer.response.text());
+    const existingFileText = editor.getHTML();
+    editor.commands.setContent(
+      existingFileText +
+        "<p><strong>Answer: </strong>" +
+        aiAnswer.response.text() +
+        "</p>"
+    );
+  };
+
   return (
     <>
       {/* Bubble Menu */}
@@ -91,29 +138,16 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
           placement: "top",
           trigger: "mouseup",
         }}
-        className="flex gap-1 p-2 bg-white rounded-lg shadow-lg border"
+        className="flex gap-1 rounded-full bg-white rounded-xl shadow-sm hover:cursor-pointer"
       >
-        <MenuButton
-          onClick={() => editor.chain().focus().toggleBold().run()}
-          isActive={editor.isActive("bold")}
+        <Button
+          variant="ghost"
+          className="rounded-pill border hover:cursor-pointer"
+          onClick={() => handleAIClick()}
         >
-          <Bold size={16} />
-        </MenuButton>
-        <MenuButton
-          onClick={() => editor.chain().focus().toggleItalic().run()}
-          isActive={editor.isActive("italic")}
-        >
-          <Italic size={16} />
-        </MenuButton>
-        <MenuButton
-          onClick={() => editor.chain().focus().toggleHighlight().run()}
-          isActive={editor.isActive("highlight")}
-        >
-          <Highlighter size={16} />
-        </MenuButton>
-        <MenuButton onClick={setLink} isActive={editor.isActive("link")}>
-          <LinkIcon size={16} />
-        </MenuButton>
+          <Sparkles size="10" />
+          Ask AI
+        </Button>
       </BubbleMenu>
 
       {/* Main Toolbar */}
@@ -215,7 +249,7 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
           </MenuButton>
         </div>
 
-        <div className="flex gap-1 items-center">
+        <div className="flex gap-1 items-center border-r pr-2">
           <MenuButton
             onClick={() => editor.chain().focus().undo().run()}
             disabled={!editor.can().undo()}
@@ -228,6 +262,15 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
           >
             <Redo size={18} />
           </MenuButton>
+        </div>
+        <div className="flex gap-2 items-center ">
+          <Button
+            variant="secondary"
+            className="rounded-pill border"
+            onClick={() => handleAIClick()}
+          >
+            Ask AI
+          </Button>
         </div>
       </div>
     </>

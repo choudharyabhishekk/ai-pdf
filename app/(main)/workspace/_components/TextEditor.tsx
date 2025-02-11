@@ -34,7 +34,7 @@ export default function TextEditor() {
   return (
     <div>
       <EditorExtensions editor={editor} />
-      <EditorContent editor={editor} />
+      <EditorContent className="overflow-scroll" editor={editor} />
     </div>
   );
 }

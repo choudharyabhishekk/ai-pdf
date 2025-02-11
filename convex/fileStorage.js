@@ -21,7 +21,7 @@ export const addFilesToDb = mutation({
       fileUrl: args.fileUrl,
       createdBy: args.createdBy,
     });
-    return "Inserted";
+    return result;
   },
 });
 
