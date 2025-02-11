@@ -21,12 +21,15 @@ import {
   Loader,
   BotMessageSquare,
   Sparkles,
+  SaveIcon,
 } from "lucide-react";
 import { chatSession } from "@/configs/AIModel";
 import { Button } from "@/components/ui/button";
-import { useAction } from "convex/react";
+import { useAction, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useParams } from "next/navigation";
+import { toast } from "sonner";
+import { useUser } from "@clerk/nextjs";
 
 interface EditorExtensionsProps {
   editor: Editor | null;
@@ -41,8 +44,9 @@ interface MenuButtonProps {
 
 const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
   const searchAI = useAction(api.myActions.search);
+  const saveNotesToDb = useMutation(api.notes.saveNotes);
+  const { user } = useUser();
   const fileId = useParams().fileId;
-
   const setLink = useCallback(() => {
     if (!editor) return;
 
@@ -86,7 +90,10 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
     </button>
   );
 
+  // Handle AI button click
   const handleAIClick = async () => {
+    toast("Searching Answers..");
+
     const selectedText = editor.state.doc.textBetween(
       editor.state.selection.from,
       editor.state.selection.to,
@@ -103,22 +110,31 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
       unformattedResult.forEach((item: any) => {
         answer = answer + item.pageContent;
       });
-    // console.log("answer:", answer);
 
     const prompt =
       "For question: " +
       selectedText +
       " and with the given content as answer, please give appropriate answer in HTML format with proper formatting and without html, head, and body tags. Also don't return the question, just provide the answer. The answer content is: " +
-      answer;
+      answer +
+      "If the answer content is blank, respond with with a warning: The PDF does not contain the answer to this question! <br/> From the web: give the answer by yourself with proper formatting.";
     const aiAnswer = await chatSession.sendMessage(prompt);
     console.log("AI Answer:", aiAnswer.response.text());
     const existingFileText = editor.getHTML();
     editor.commands.setContent(
       existingFileText +
         "<p><strong>Answer: </strong>" +
-        aiAnswer.response.text() +
+        aiAnswer.response.text().replace("```html", "").replace("```", "") +
         "</p>"
     );
+    saveNotes();
+  };
+
+  const saveNotes = async () => {
+    await saveNotesToDb({
+      notes: editor.getHTML(),
+      fileId: fileId as string,
+      createdBy: user?.primaryEmailAddress?.emailAddress || "",
+    });
   };
 
   return (
@@ -263,9 +279,18 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
             <Redo size={18} />
           </MenuButton>
         </div>
-        <div className="flex gap-2 items-center ">
+        <div className="flex mx-2 gap-2 items-center ">
           <Button
-            variant="secondary"
+            variant="outline"
+            onClick={() => {
+              saveNotes();
+              toast("Notes saved!");
+            }}
+          >
+            <SaveIcon />
+          </Button>
+          <Button
+            variant="outline"
             className="rounded-pill border"
             onClick={() => handleAIClick()}
           >

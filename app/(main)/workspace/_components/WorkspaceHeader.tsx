@@ -1,10 +1,14 @@
 import { UserButton } from "@clerk/nextjs";
-import Image from "next/image";
+import { FilePen, FileText } from "lucide-react";
 
-export default function WorkspaceHeader() {
+export default function WorkspaceHeader({ fileName }: { fileName: string }) {
   return (
-    <div className="p-4 justify-between shadow-md">
-      {/* <Image src={"./logo.png"} alt="logo" width={100} height={100}></Image> */}
+    <div className="flex p-4 justify-between shadow-md">
+      <h1>AI Note Taker</h1>
+      <div className="flex gap-1 items-center">
+        <FileText size={18} />
+        {fileName}
+      </div>
       <UserButton />
     </div>
   );

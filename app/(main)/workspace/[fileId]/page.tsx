@@ -14,10 +14,10 @@ export default function Workspace() {
 
   return (
     <div>
-      <WorkspaceHeader />
+      <WorkspaceHeader fileName={fileDetails?.fileName || "Untitled"} />
       <div className="grid sm:grid-cols-2 gap-5 p-2">
         <div>
-          <TextEditor />
+          <TextEditor fileId={fileId} />
         </div>
         <div>{fileDetails && <PdfViewer fileUrl={fileDetails.fileUrl} />}</div>
       </div>

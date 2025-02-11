@@ -7,7 +7,14 @@ import EditorExtensions from "./EditorExtensions";
 import TextAlign from "@tiptap/extension-text-align";
 import Link from "@tiptap/extension-link";
 import Highlight from "@tiptap/extension-highlight";
-export default function TextEditor() {
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useEffect } from "react";
+export default function TextEditor({ fileId }: { fileId: string }) {
+  const fetchNotes = useQuery(api.notes.getNotes, {
+    fileId: fileId,
+  });
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -30,6 +37,12 @@ export default function TextEditor() {
       },
     },
   });
+
+  useEffect(() => {
+    if (editor) {
+      editor.commands.setContent(fetchNotes || "");
+    }
+  }, [fetchNotes]);
 
   return (
     <div>
