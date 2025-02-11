@@ -25,8 +25,6 @@ export const ingest = action({
       }),
       { ctx }
     );
-    // Log the embeddings instance
-    console.log("Embeddings instance:", embeddings);
     return "Completed Embedding";
   },
 });
