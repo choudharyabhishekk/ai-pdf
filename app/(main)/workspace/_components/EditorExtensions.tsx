@@ -117,16 +117,29 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
       " and with the given content as answer, please give appropriate answer in HTML format with proper formatting and without html, head, and body tags. Also don't return the question, just provide the answer. The answer content is: " +
       answer +
       "If the answer content is blank, respond with with a warning: The PDF does not contain the answer to this question! <br/> From the web: give the answer by yourself with proper formatting.";
-    const aiAnswer = await chatSession.sendMessage(prompt);
-    console.log("AI Answer:", aiAnswer.response.text());
-    const existingFileText = editor.getHTML();
-    editor.commands.setContent(
-      existingFileText +
-        "<p><strong>Answer: </strong>" +
-        aiAnswer.response.text().replace("```html", "").replace("```", "") +
-        "</p>"
-    );
-    saveNotes();
+
+    try {
+      const aiAnswer = await chatSession.sendMessage(prompt);
+      const existingFileText = editor.getHTML();
+      editor.commands.setContent(
+        existingFileText +
+          "<p><strong>Answer: </strong>" +
+          aiAnswer.response.text().replace("```html", "").replace("```", "") +
+          "</p>"
+      );
+      saveNotes();
+    } catch (error: unknown) {
+      if (
+        error instanceof Error &&
+        error.message.includes("503") &&
+        error.message.includes("overloaded")
+      ) {
+        toast.error("AI is currently unavailable. Please try again later.");
+      } else {
+        // Handle other types of errors
+        toast.error("An error occurred. Please try again.");
+      }
+    }
   };
 
   const saveNotes = async () => {

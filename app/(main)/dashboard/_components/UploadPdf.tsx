@@ -17,14 +17,21 @@ import { useAction, useMutation } from "convex/react";
 import { Loader2Icon } from "lucide-react";
 import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
+import { toast } from "sonner";
 
-export default function UploadPdf({ children }: { children: React.ReactNode }) {
+export default function UploadPdf({
+  children,
+  fileLimit,
+}: {
+  children: React.ReactNode;
+  fileLimit: boolean;
+}) {
   const generateUploadUrl = useMutation(api.fileStorage.generateUploadUrl);
   const addFileEntry = useMutation(api.fileStorage.addFilesToDb);
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-  const [fileName, setFileName] = useState<String>("untitled");
+  const [fileName, setFileName] = useState<string>("untitled");
   const getFileUrl = useMutation(api.fileStorage.getFileUrl);
   const { user } = useUser();
   const embeddDocument = useAction(api.myActions.ingest);
@@ -33,6 +40,7 @@ export default function UploadPdf({ children }: { children: React.ReactNode }) {
   const onFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setFile(e.target.files[0]);
+      setFileName(e.target.files[0].name);
     }
   };
 
@@ -62,22 +70,25 @@ export default function UploadPdf({ children }: { children: React.ReactNode }) {
     //API call to fetch PDF data
     const apiResponse = await fetch("/api/pdf-parser?pdfUrl=" + fileUrl);
     const data = await apiResponse.json();
-
+    setLoading(false);
+    dialogOpen && setDialogOpen(false);
+    toast.success("File uploaded successfully");
+    // embedd the document in background
     await embeddDocument({
       splitText: data.result,
       fileId: fileId,
     });
-
-    // set loading to false
-    setLoading(false);
-    dialogOpen && setDialogOpen(false);
   };
 
   return (
     <div>
       <Dialog open={dialogOpen}>
         <DialogTrigger asChild>
-          <Button className="w-full" onClick={() => setDialogOpen(true)}>
+          <Button
+            className="w-full"
+            disabled={fileLimit}
+            onClick={() => setDialogOpen(true)}
+          >
             + Upload PDF File
           </Button>
         </DialogTrigger>
@@ -99,6 +110,7 @@ export default function UploadPdf({ children }: { children: React.ReactNode }) {
                   <Input
                     required
                     placeholder="File Name"
+                    value={fileName}
                     onChange={(e) => setFileName(e.target.value)}
                   />
                 </div>
