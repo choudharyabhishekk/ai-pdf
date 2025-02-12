@@ -1,6 +1,7 @@
 import React from "react";
-import Sidebar from "./_components/Sidebar";
 import Header from "./_components/Header";
+import AppSidebar from "./_components/AppSidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function DashboardLayout({
   children,
@@ -8,14 +9,12 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      <div className="md:w-64 h-screen fixed ">
-        <Sidebar />
-      </div>
-      <div className="md:ml-64">
+    <SidebarProvider>
+      <AppSidebar />
+      <div className="flex flex-col h-screen w-full">
         <Header />
-        <div className="p-10">{children}</div>
+        <main className="p-10">{children}</main>
       </div>
-    </div>
+    </SidebarProvider>
   );
 }

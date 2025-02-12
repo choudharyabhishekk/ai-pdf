@@ -33,7 +33,7 @@ export default function TextEditor({ fileId }: { fileId: string }) {
     ],
     editorProps: {
       attributes: {
-        class: "focus:outline-none h-screen p-5",
+        class: "focus:outline-none h-[80vh] p-5",
       },
     },
   });
@@ -47,7 +47,7 @@ export default function TextEditor({ fileId }: { fileId: string }) {
   return (
     <div>
       <EditorExtensions editor={editor} />
-      <EditorContent className="overflow-scroll" editor={editor} />
+      <EditorContent className="overflow-scroll " editor={editor} />
     </div>
   );
 }

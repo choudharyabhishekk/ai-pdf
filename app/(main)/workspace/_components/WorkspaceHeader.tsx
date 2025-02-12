@@ -1,15 +1,28 @@
 import { UserButton } from "@clerk/nextjs";
 import { FilePen, FileText } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function WorkspaceHeader({ fileName }: { fileName: string }) {
   return (
-    <div className="flex p-4 justify-between shadow-md">
-      <h1>AI Note Taker</h1>
-      <div className="flex gap-1 items-center">
+    <nav className="flex p-3 justify-between shadow-sm ">
+      <div>
+        <Link href="/dashboard">
+          <Image
+            title="View Dashboard"
+            src="/logo.png"
+            width={100}
+            height={100}
+            alt="profile"
+            className="mx-auto"
+          />
+        </Link>
+      </div>
+      <div className="flex gap-1 items-center" title="File Name">
         <FileText size={18} />
         {fileName}
       </div>
       <UserButton />
-    </div>
+    </nav>
   );
 }

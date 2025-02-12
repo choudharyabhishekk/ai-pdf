@@ -7,7 +7,11 @@ interface PdfViewerProps {
 export default function PdfViewer({ fileUrl }: PdfViewerProps) {
   return (
     <div>
-      <iframe src={fileUrl + "#toolbar=0"} width="100%" className="h-[90vh]" />
+      <iframe
+        src={fileUrl + "#toolbar=0"}
+        width="100%"
+        className="h-[90vh] custom-scrollbar"
+      />
     </div>
   );
 }

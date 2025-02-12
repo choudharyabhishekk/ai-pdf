@@ -5,21 +5,34 @@ import { useMutation } from "convex/react";
 import { useEffect } from "react";
 
 export default function Home() {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser(); // Add isLoaded to check if user data is fully loaded
   const createUser = useMutation(api.user.createUser);
 
   // check if user exists
   const checkUser = async (): Promise<void> => {
-    const result = await createUser({
-      email: user?.primaryEmailAddress?.emailAddress as string,
-      imageUrl: user?.imageUrl as string,
-      userName: user?.fullName as string,
-    });
+    if (!isLoaded) {
+      console.log("User data is still loading...");
+      return;
+    }
+
+    if (
+      user?.primaryEmailAddress?.emailAddress &&
+      user?.imageUrl &&
+      user?.fullName
+    ) {
+      await createUser({
+        email: user.primaryEmailAddress.emailAddress,
+        imageUrl: user.imageUrl,
+        userName: user.fullName,
+      });
+    } else {
+      console.error("User information is incomplete.", user);
+    }
   };
 
   useEffect(() => {
     checkUser();
-  }, [user]);
+  }, [user, isLoaded]);
 
   return (
     <div>
