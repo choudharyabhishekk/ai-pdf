@@ -30,7 +30,8 @@
     "convex/user.js",
     "convex/myActions.js",
     "convex/fileStorage.js",
-    "convex/schema.js"
+    "convex/schema.js",
+    "app/api/payment/webhook/route.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -5,7 +5,7 @@ import { Progress } from "@/components/ui/progress";
 import { LayoutIcon, Shield } from "lucide-react";
 import Image from "next/image";
 import UploadPdf from "./UploadPdf";
-import { useUser } from "@clerk/nextjs";
+import { useClerk, UserButton, useUser } from "@clerk/nextjs";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { usePathname } from "next/navigation";
@@ -19,6 +19,8 @@ import {
   SidebarGroup,
   SidebarFooter,
 } from "@/components/ui/sidebar";
+import { User } from "@clerk/nextjs/server";
+import { Separator } from "@radix-ui/react-separator";
 
 interface ProMemberTypes {
   isProMember: boolean;
@@ -27,6 +29,8 @@ interface ProMemberTypes {
 
 export default function AppSidebar() {
   const path = usePathname();
+  const { openUserProfile } = useClerk();
+
   const [proMember, setProMember] = useState<ProMemberTypes>({
     isProMember: false,
     fileLimit: false,
@@ -82,7 +86,7 @@ export default function AppSidebar() {
         </SidebarGroup>
 
         <SidebarGroup className="px-4 py-2">
-          <nav className="space-y-1">
+          <nav className="flex flex-col space-y-2">
             <Link href="/dashboard" passHref>
               <Button
                 variant="ghost"
@@ -112,15 +116,15 @@ export default function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter className="px-4 py-6 mt-auto mb-5">
-        <div className="space-y-2">
+      <SidebarFooter className="px-4 py-6 mt-auto ">
+        <div className="space-y-2 border border-gray-200 shadow-xs p-3 rounded-lg ">
           <Progress
             value={
               proMember.isProMember
                 ? ((files?.length ?? 0) / 100) * 100
                 : ((files?.length ?? 0) / 2) * 100
             }
-            className="h-2"
+            className="h-2 "
           />
           <p className="text-sm text-muted-foreground">
             {files?.length} out of {proMember.isProMember ? "unlimited" : "2"}{" "}
@@ -131,6 +135,26 @@ export default function AppSidebar() {
               Upgrade to Upload more PDF
             </p>
           )}
+        </div>
+        <Separator className="border border-gray-100 shadow-xs mt-2 mx-2" />
+
+        <div
+          className="flex gap-2 justify-center items-center p-3 rounded-lg cursor-pointer hover:bg-slate-100  "
+          title="Profile Settings"
+          onClick={() => openUserProfile()}
+        >
+          <Image
+            src={user?.imageUrl || "/profile.png"}
+            width={35}
+            height={35}
+            alt="profile"
+          />
+          <div>
+            <p className="text-sm">{user?.fullName}</p>
+            <p className="text-xs text-muted-foreground">
+              {user?.primaryEmailAddress?.emailAddress}
+            </p>
+          </div>
         </div>
       </SidebarFooter>
     </Sidebar>

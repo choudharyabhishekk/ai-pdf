@@ -7,6 +7,7 @@ export default defineSchema({
     email: v.string(),
     imageUrl: v.string(),
     membership: v.boolean(),
+    customerId: v.optional(v.string()),
   }),
   pdfFiles: defineTable({
     fileId: v.string(),
@@ -27,5 +28,10 @@ export default defineSchema({
     fileId: v.string(),
     notes: v.any(),
     createdBy: v.string(),
+  }),
+  paymentRecord: defineTable({
+    id: v.string(),
+    customerId: v.string(),
+    sessionId: v.string(),
   }),
 });

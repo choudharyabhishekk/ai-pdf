@@ -165,7 +165,6 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
         tippyOptions={{
           duration: 100,
           placement: "top",
-          trigger: "mouseup",
         }}
         className="flex gap-1 rounded-full bg-white rounded-xl shadow-sm hover:cursor-pointer"
       >
@@ -180,7 +179,7 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
       </BubbleMenu>
 
       {/* Main Toolbar */}
-      <div className="flex flex-wrap gap-1 p-2 border rounded-lg bg-white shadow-sm">
+      <div className="flex flex-wrap gap-1 p-2 border rounded-t-lg bg-white h-[16vh] min shadow-sm">
         <div className="flex gap-1 items-center border-r pr-2">
           <MenuButton
             onClick={() => editor.chain().focus().toggleBold().run()}

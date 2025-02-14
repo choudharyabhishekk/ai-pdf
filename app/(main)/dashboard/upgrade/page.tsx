@@ -1,6 +1,35 @@
+"use client";
+import { Button } from "@/components/ui/button";
+import { log } from "console";
 import { XIcon } from "lucide-react";
 
 export default function UpgradePlan() {
+  async function checkoutHandler() {
+    try {
+      const result = await fetch("/api/payment/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID,
+        }),
+      });
+
+      if (!result.ok) {
+        throw new Error(`Failed to initiate checkout: ${result.statusText}`);
+      }
+
+      const data = await result.json();
+      open(data?.session?.url);
+    } catch (error) {
+      console.error("Error during checkout:", error);
+      alert(
+        "There was an error during the checkout process. Please try again."
+      );
+    }
+  }
+
   return (
     <div>
       <h2 className="font-medium text-3xl text-center">Plans</h2>
@@ -27,7 +56,6 @@ export default function UpgradePlan() {
                 </span>
               </p>
             </div>
-
             <ul className="mt-6 space-y-2">
               <li className="flex items-center gap-1">
                 <svg
@@ -106,12 +134,14 @@ export default function UpgradePlan() {
               </li>
             </ul>
 
-            <a
-              href="#"
+            <Button
               className="mt-8 block rounded-full border border-indigo-600 bg-indigo-600 px-12 py-3 text-center text-sm font-medium text-white hover:bg-indigo-700 hover:ring-1 hover:ring-indigo-700 focus:ring-3 focus:outline-hidden"
+              onClick={() => {
+                checkoutHandler();
+              }}
             >
               Upgrade
-            </a>
+            </Button>
           </div>
 
           <div className="rounded-2xl border border-gray-200 p-6 shadow-xs sm:px-8 lg:p-12">
