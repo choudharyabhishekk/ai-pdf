@@ -31,9 +31,11 @@ export default function TextEditor({ fileId }: { fileId: string }) {
         placeholder: "Start asking questions from PDF & Make Notes 💯📝...",
       }),
     ],
+    immediatelyRender: false,
     editorProps: {
       attributes: {
-        class: "focus:outline-none h-[71vh] p-5",
+        // h-[71vh here]
+        class: "h-screen focus:outline-none p-5",
       },
     },
   });
@@ -45,10 +47,11 @@ export default function TextEditor({ fileId }: { fileId: string }) {
   }, [fetchNotes]);
 
   return (
-    <div>
+    <div >
       <EditorExtensions editor={editor} />
       <EditorContent
-        className="overflow-scroll border border-t-0 shadown-sm rounded-b-lg"
+      
+        className="overflow-scroll border border-t-0 shadow-sm rounded-b-lg"
         editor={editor}
       />
     </div>

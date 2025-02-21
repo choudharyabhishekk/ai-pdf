@@ -15,7 +15,7 @@ export default function Workspace() {
   return (
     <div className="flex flex-col sm:h-screen overflow-hidden">
       <WorkspaceHeader fileName={fileDetails?.fileName || "Untitled"} />
-      <div className="grid sm:grid-cols-2 gap-3 p-2 flex-grow overflow-hidden">
+      <div className="grid sm:grid-cols-2 gap-3 my-1 p-2 flex-grow overflow-hidden h-auto">
         <div className="overflow-hidden custom-scrollbar">
           <TextEditor fileId={fileId} />
         </div>

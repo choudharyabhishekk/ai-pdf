@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function WorkspaceHeader({ fileName }: { fileName: string }) {
   return (
-    <nav className="flex h-[8vh] p-2 justify-between shadow-sm ">
+    <nav className="flex h-auto p-2 justify-between items-center border shadow-sm px-4">
       <div>
         <Link href="/dashboard">
           <Image

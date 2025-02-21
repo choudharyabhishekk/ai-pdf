@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { log } from "console";
 import { XIcon } from "lucide-react";
 
@@ -134,14 +133,14 @@ export default function UpgradePlan() {
               </li>
             </ul>
 
-            <Button
+            <button
               className="mt-8 block rounded-full border border-indigo-600 bg-indigo-600 px-12 py-3 text-center text-sm font-medium text-white hover:bg-indigo-700 hover:ring-1 hover:ring-indigo-700 focus:ring-3 focus:outline-hidden"
               onClick={() => {
                 checkoutHandler();
               }}
             >
-              Upgrade
-            </Button>
+              Upgrade Now
+            </button>
           </div>
 
           <div className="rounded-2xl border border-gray-200 p-6 shadow-xs sm:px-8 lg:p-12">
@@ -165,20 +164,8 @@ export default function UpgradePlan() {
 
             <ul className="mt-6 space-y-2">
               <li className="flex items-center gap-1">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="size-5 text-indigo-700"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4.5 12.75l6 6 9-13.5"
-                  />
-                </svg>
+          
+                <XIcon className="text-red-500" size={20} />
 
                 <span className="text-gray-700"> 2 Files Limit </span>
               </li>

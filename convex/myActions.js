@@ -50,7 +50,7 @@ export const search = action({
       { ctx }
     );
 
-    const results = await vectorStore.similaritySearch(args.query, 1);
+    const results = await vectorStore.similaritySearch(args.query, 2);
 
     const filteredResults = results.filter((q) => {
       const metadataString = Object.values(q.metadata).join("");

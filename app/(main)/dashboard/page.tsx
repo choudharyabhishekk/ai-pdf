@@ -20,10 +20,10 @@ export default function Dashboard() {
             Hello {user?.firstName}, start by uploading a PDF document.
           </h2>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-5 p-5 mt-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 2xl:grid-cols-6 p-3 mt-3 gap-5">
             {files.map((file, index) => (
-              <Link href={`/workspace/${file.fileId}`} key={index}>
-                <div className="flex flex-col gap-2 items-center p-3 shadow-md border rounded-lg cursor-pointer hover:scale-105 transition-all">
+              <Link href={`/workspace/${file.fileId}`} key={index} title={file.fileName}>
+                <div className="flex w-52 h-32 flex-col gap-2 items-center justify-center p-3 shadow-md border rounded-lg cursor-pointer hover:scale-105 transition-all">
                   <Image
                     src={"/pdf.png"}
                     alt={file.fileName}
@@ -31,8 +31,8 @@ export default function Dashboard() {
                     height={50}
                   />
                   <h2>
-                    {file?.fileName?.length > 20
-                      ? file?.fileName?.slice(0, 20) + "..."
+                    {file?.fileName?.length > 14
+                      ? file?.fileName?.slice(0, 14) + "..."
                       : file?.fileName}
                   </h2>
                 </div>

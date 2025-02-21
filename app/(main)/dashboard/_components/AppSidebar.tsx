@@ -19,7 +19,6 @@ import {
   SidebarGroup,
   SidebarFooter,
 } from "@/components/ui/sidebar";
-import { User } from "@clerk/nextjs/server";
 import { Separator } from "@radix-ui/react-separator";
 
 interface ProMemberTypes {
@@ -136,10 +135,10 @@ export default function AppSidebar() {
             </p>
           )}
         </div>
-        <Separator className="border border-gray-100 shadow-xs mt-2 mx-2" />
+        <Separator className="border border-gray-100 shadow-xs my-2 mx-2" />
 
         <div
-          className="flex gap-2 justify-center items-center p-3 rounded-lg cursor-pointer hover:bg-slate-100  "
+          className="flex gap-2 border border-gray-200 shadow-xs justify-center items-center p-3 rounded-lg cursor-pointer hover:bg-slate-100  "
           title="Profile Settings"
           onClick={() => openUserProfile()}
         >

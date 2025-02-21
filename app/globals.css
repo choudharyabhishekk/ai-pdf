@@ -17,12 +17,25 @@ body {
   ol {
     padding: 0 1rem;
     margin: 1.25rem 1rem 1.25rem 0.4rem;
-
+    list-style: square;
     li p {
       margin-top: 0.25em;
       margin-bottom: 0.25em;
     }
+
   }
+
+    iframe {
+      width: 800px;
+      height: 520px;
+      border: 1px solid black;
+    }
+  
+    frame {
+      zoom: 0.75;
+      -moz-transform: scale(0.75);
+      -moz-transform-origin: 0 0;
+    }
 
   /* Heading styles */
   h1,
@@ -32,14 +45,12 @@ body {
   h5,
   h6 {
     line-height: 1.1;
-    margin-top: 2.5rem;
     text-wrap: pretty;
   }
 
   h1,
   h2 {
-    margin-top: 3.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 10px;
   }
 
   h1 {
