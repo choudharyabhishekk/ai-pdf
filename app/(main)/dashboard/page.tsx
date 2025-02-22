@@ -1,15 +1,43 @@
 "use client";
 import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function Dashboard() {
-  const { user } = useUser();
+  const { user, isLoaded } = useUser(); 
+  const createUser = useMutation(api.user.createUser);
   const files = useQuery(api.fileStorage.getFiles, {
     userEmail: user?.primaryEmailAddress?.emailAddress || "",
   });
+
+    // check if user exists
+  const checkUser = async (): Promise<void> => {
+    if (!isLoaded) {
+      console.log("User data is still loading...");
+      return;
+    }
+
+    if (
+      user?.primaryEmailAddress?.emailAddress &&
+      user?.imageUrl &&
+      user?.fullName
+    ) {
+      await createUser({
+        email: user.primaryEmailAddress.emailAddress,
+        imageUrl: user.imageUrl,
+        userName: user.fullName,
+      });
+    } else {
+      console.error("User information is incomplete.", user);
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+  }, [ isLoaded]);
 
   return (
     <div>

@@ -8,7 +8,7 @@ export default function Header() {
       <div>
         <SidebarTrigger />
       </div>
-      <UserButton />
+      <UserButton  />
     </header>
   );
 }

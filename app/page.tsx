@@ -3,9 +3,7 @@ import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/ui/footer";
 import Navbar from "@/components/ui/navbar";
-import { api } from "@/convex/_generated/api";
-import { UserButton, useUser } from "@clerk/nextjs";
-import { useMutation } from "convex/react";
+
 import { Brain, ChevronRight, FileText, Github, Zap } from "lucide-react";
 import Image from "next/image";
 import { useEffect } from "react";
@@ -13,35 +11,10 @@ import people from "./data/reviews";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const { user, isLoaded } = useUser(); // Add isLoaded to check if user data is fully loaded
-  const createUser = useMutation(api.user.createUser);
+
   const router = useRouter()
 
-  // check if user exists
-  // const checkUser = async (): Promise<void> => {
-  //   if (!isLoaded) {
-  //     console.log("User data is still loading...");
-  //     return;
-  //   }
 
-  //   if (
-  //     user?.primaryEmailAddress?.emailAddress &&
-  //     user?.imageUrl &&
-  //     user?.fullName
-  //   ) {
-  //     await createUser({
-  //       email: user.primaryEmailAddress.emailAddress,
-  //       imageUrl: user.imageUrl,
-  //       userName: user.fullName,
-  //     });
-  //   } else {
-  //     console.error("User information is incomplete.", user);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   checkUser();
-  // }, [user, isLoaded]);
 
   return (
     <>
@@ -50,14 +23,16 @@ export default function Home() {
       {/* Hero Section */}
       <section className="flex flex-col items-center space-y-4 ">
       <h1 className="text-4xl lg:text-5xl font-medium">Chat with any {" "}
-        <span className="">
+        {/* <span className="bg-gradient-to-r from-red-400 to-pink-500 text-transparent bg-clip-text"> */}
+        <span className=" bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text">
+
         PDF & take notes 
         </span></h1>
       <p className="text-base text-gray-600">Extract insights, take notes, and understand complex documents with AI.</p>
        <div className="flex space-x-5 my-5">
                 <Button variant={"default"} className="rounded-lg" onClick={(e)=> {
                   e.preventDefault();
-                   router.push("/sign-up");
+                   router.push("/sign-in");
                 }} >
                   Try for Free
                   <ChevronRight className="ml-2 h-5 w-5" />
@@ -81,13 +56,12 @@ export default function Home() {
       <p className="text-base text-gray-600 text-center my-10">Trusted by students and researchers from top institutions</p>
        <div className="flex flex-row items-center justify-center mb-7 w-full">
       <AnimatedTooltip items={people} /></div>
-
     </section>
     
 
 
       {/* Features Section */}
-      <section className="feature py-20 bg-white/50 backdrop-blur-sm">
+      <section id="feature" className="py-20 bg-white/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-4xl lg:text-5xl font-medium mb-4">Powerful Features</h2>
@@ -131,7 +105,7 @@ export default function Home() {
       <section className="mb-10">
         <div className="max-w-7xl mx-auto  sm:px-6 lg:px-8">
           <div className="bg-gradient-to-bl from-indigo-500 to-sky-500 rounded-2xl p-12 lg:py-20 text-center text-white backdrop-blur-sm">
-            <h2 className="text-4xl tracking-tight lg:text-5xl font-medium mb-4 leading-snug">Ready to transform your  <br/> PDF experience?</h2>
+            <h2 className="text-4xl tracking-tight lg:text-5xl font-medium mb-6 leading-normal">Ready to transform your  <br/> note taking experience?</h2>
             <p className="text-base lg:text-xl mb-8 opacity-90">
               Join thousands of users who are already using AI PDF<br/> to work smarter  with their documents.
             </p>
