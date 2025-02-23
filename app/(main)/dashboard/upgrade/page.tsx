@@ -1,6 +1,5 @@
 "use client";
-import { log } from "console";
-import { XIcon } from "lucide-react";
+import { XIcon, CheckIcon } from "lucide-react";
 
 export default function UpgradePlan() {
   async function checkoutHandler() {
@@ -57,77 +56,25 @@ export default function UpgradePlan() {
             </div>
             <ul className="mt-6 space-y-2">
               <li className="flex items-center gap-1">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="size-5 text-indigo-700"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4.5 12.75l6 6 9-13.5"
-                  />
-                </svg>
+                <CheckIcon className="text-green-500" size={20} />
 
                 <span className="text-gray-700"> Unlimited file uploads </span>
               </li>
 
               <li className="flex items-center gap-1">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="size-5 text-indigo-700"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4.5 12.75l6 6 9-13.5"
-                  />
-                </svg>
+                <CheckIcon className="text-green-500" size={20} />
 
                 <span className="text-gray-700"> Unlimited notes </span>
               </li>
 
               <li className="flex items-center gap-1">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="size-5 text-indigo-700"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4.5 12.75l6 6 9-13.5"
-                  />
-                </svg>
+                <CheckIcon className="text-green-500" size={20} />
 
                 <span className="text-gray-700"> Email support </span>
               </li>
 
               <li className="flex items-center gap-1">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="size-5 text-indigo-700"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4.5 12.75l6 6 9-13.5"
-                  />
-                </svg>
+                <CheckIcon className="text-green-500" size={20} />
 
                 <span className="text-gray-700"> Help center access </span>
               </li>
@@ -164,7 +111,6 @@ export default function UpgradePlan() {
 
             <ul className="mt-6 space-y-2">
               <li className="flex items-center gap-1">
-          
                 <XIcon className="text-red-500" size={20} />
 
                 <span className="text-gray-700"> 2 Files Limit </span>

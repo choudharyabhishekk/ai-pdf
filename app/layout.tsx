@@ -3,6 +3,8 @@ import { Outfit } from "next/font/google";
 import { ConvexClientProvider } from "./ConvexClientProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
+import Navbar from "@/components/ui/navbar";
+import Footer from "@/components/ui/footer";
 export const etadata = {
   title: "AI PDF Generator",
   description: "Generate PDFs with AI",
