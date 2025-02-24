@@ -1,9 +1,9 @@
-import { useMutation } from "convex/react";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { api } from "@/convex/_generated/api";
+import { ConvexHttpClient } from "convex/browser";
 
 export async function POST(req) {
+  const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL);
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
   const stripe = new Stripe(stripeSecretKey);
 
@@ -40,8 +40,7 @@ export async function POST(req) {
     case "checkout.session.completed":
       // Payment is successful and the subscription is created.
       // You should provision the subscription and save the customer ID to your database.
-      const updateSubscription = useMutation(api.user.upgradeMembership);
-      await updateSubscription({
+      await convex.mutation("user:upgradeMembership", {
         email: data.customer_details.email,
       });
       break;
