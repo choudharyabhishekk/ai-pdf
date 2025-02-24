@@ -17,10 +17,6 @@ import {
   Code,
   Heading1,
   Heading2,
-  Sparkle,
-  Loader,
-  BotMessageSquare,
-  Sparkles,
   SaveIcon,
 } from "lucide-react";
 import { chatSession } from "@/configs/AIModel";
@@ -111,27 +107,27 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
       unformattedResult.forEach((item: any) => {
         answer = answer + item.pageContent;
       });
-      const maxLength = 1500;
-      console.log("Answer from DB:", answer);
-      
-// const prompt = `
-// Please provide a formatted answer based on the following:
+    const maxLength = 1500;
+    console.log("Answer from DB:", answer);
 
-// Question: ${selectedText}
+    // const prompt = `
+    // Please provide a formatted answer based on the following:
 
-// Content to use as answer: ${answer}
+    // Question: ${selectedText}
 
-// Requirements:
-// - Return only the answer content, don't return the question again.
-// - Use HTML formatting (excluding html/head/body tags)
-// - Maximum response length: ${maxLength} characters
-// - Format using: <h2>, <p>, <ul>/<li>, <strong>, <em> tags as appropriate
-// - Include relevant examples if available
-// - If technical terms are used, provide brief explanations
+    // Content to use as answer: ${answer}
 
-// If the content use as answer is not relevant or empty, respond with:
-// "Warning: The PDF does not contain the answer to this question!<br/>Here's a general answer based on available knowledge:"
-// `.trim();
+    // Requirements:
+    // - Return only the answer content, don't return the question again.
+    // - Use HTML formatting (excluding html/head/body tags)
+    // - Maximum response length: ${maxLength} characters
+    // - Format using: <h2>, <p>, <ul>/<li>, <strong>, <em> tags as appropriate
+    // - Include relevant examples if available
+    // - If technical terms are used, provide brief explanations
+
+    // If the content use as answer is not relevant or empty, respond with:
+    // "Warning: The PDF does not contain the answer to this question!<br/>Here's a general answer based on available knowledge:"
+    // `.trim();
 
     const prompt =
       "For question: " +
@@ -145,14 +141,16 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
 
       // Append the answer to the editor at current cursor position
       console.log("AI Answer formatted:", aiAnswer.response.text());
-      
-      editor.chain().focus().insertContentAt(
-        editor.state.selection.to,
-        "<p><strong>Answer: </strong>" +
-        aiAnswer.response.text().replace("```html", "").replace("```", "")
-      ).run();
 
-
+      editor
+        .chain()
+        .focus()
+        .insertContentAt(
+          editor.state.selection.to,
+          "<p><strong>Answer: </strong>" +
+            aiAnswer.response.text().replace("```html", "").replace("```", "")
+        )
+        .run();
 
       // const existingFileText = editor.getHTML();
       // editor.commands.setContent(
@@ -202,15 +200,16 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
         }}
         className="flex gap-1 rounded-full bg-white rounded-xl shadow-sm hover:cursor-pointer"
       >
-            <button className="relative inline-flex h-9 overflow-hidden rounded-full p-[2px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
-            onClick={() => handleAIClick()}
-            >
-  <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-  <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white px-3 py-1 text-sm font-medium text-slate-950 backdrop-blur-3xl">
-    Ask AI
-  </span>
-</button> 
-          
+        <button
+          className="relative inline-flex h-9 overflow-hidden rounded-full p-[2px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
+          onClick={() => handleAIClick()}
+        >
+          <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+          <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white px-3 py-1 text-sm font-medium text-slate-950 backdrop-blur-3xl">
+            Ask AI
+          </span>
+        </button>
+
         {/* <Button
           variant="ghost"
           className="rounded-pill border hover:cursor-pointer"
@@ -353,7 +352,6 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
               <span> Ask AI</span>
             </span>
           </button>
-          
         </div>
       </div>
     </>
