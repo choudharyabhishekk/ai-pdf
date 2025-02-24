@@ -254,8 +254,8 @@ export default function Home() {
 
       {/* CTA Section */}
       <section id="cta" className="py-10">
-        <div className="max-w-7xl mx-auto bg-gradient-to-tl from-[#FF4B2B] via-[#fa003a] to-[#6B5BFF] rounded-3xl ">
-          <div className="rounded-2xl p-12 lg:py-24  text-center bg-white/30 backdrop-blur-lg text-white shadow-md ">
+        <div className="max-w-7xl mx-auto bg-gradient-to-tl from-blue-400 via-indigo-500 to-[#7e70fd] rounded-3xl ">
+          <div className="rounded-2xl p-12 lg:py-24  text-center  text-white shadow-md ">
             <h2 className="text-4xl tracking-tight lg:text-5xl font-medium mb-6 leading-normal">
               Ready to transform your <br /> note taking experience?
             </h2>
@@ -264,7 +264,7 @@ export default function Home() {
               work smarter with their documents
             </p>
             <button
-              className="bg-white text-gray-700 px-8 py-3 rounded-lg hover:bg-indigo-50 transition font-semibold"
+              className="bg-white text-indigo-500 px-8 py-3 rounded-lg hover:bg-indigo-50 transition font-semibold"
               onClick={() => {
                 handleRoute("/sign-in");
               }}

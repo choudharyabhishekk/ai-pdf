@@ -11,7 +11,10 @@ const AboutPage: React.FC = () => {
       <section className="py-20">
         <div className="max-w-4xl mx-auto px-4">
           <h1 className="text-4xl font-bold text-[#0F172A] text-center mb-6">
-            About AI PDF Notes
+            About{" "}
+            <span className="bg-gradient-to-r  from-red-500 to-pink-500  text-transparent bg-clip-text">
+              AI PDF Notes
+            </span>
           </h1>
           <p className="text-xl text-gray-600 text-center max-w-2xl mx-auto">
             Transforming how people interact with and understand PDF documents
