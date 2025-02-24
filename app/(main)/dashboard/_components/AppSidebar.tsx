@@ -66,13 +66,15 @@ export default function AppSidebar() {
   return (
     <Sidebar collapsible="offcanvas" className="h-screen border-r">
       <SidebarHeader className="p-4">
-        <Image
-          src="/logo.png"
-          width={130}
-          height={130}
-          alt="profile"
-          className="mx-auto"
-        />
+        <Link href="/dashboard">
+          <Image
+            src="/logo.png"
+            width={130}
+            height={130}
+            alt="profile"
+            className="mx-auto"
+          />
+        </Link>
       </SidebarHeader>
 
       <SidebarContent className="mt-5">

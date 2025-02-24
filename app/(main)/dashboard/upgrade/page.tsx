@@ -46,7 +46,7 @@ export default function UpgradePlan() {
               <p className="mt-2 sm:mt-4">
                 <strong className="text-3xl font-bold text-gray-900 sm:text-4xl">
                   {" "}
-                  $9{" "}
+                  $10{" "}
                 </strong>
 
                 <span className="text-sm font-medium text-gray-700">

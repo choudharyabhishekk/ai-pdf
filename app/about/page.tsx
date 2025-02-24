@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import { Zap, Shield, Lightbulb } from "lucide-react";
+import Link from "next/link";
 
 const AboutPage: React.FC = () => {
   return (
@@ -8,7 +11,7 @@ const AboutPage: React.FC = () => {
       <section className="py-20">
         <div className="max-w-4xl mx-auto px-4">
           <h1 className="text-4xl font-bold text-[#0F172A] text-center mb-6">
-            About AI PDF
+            About AI PDF Notes
           </h1>
           <p className="text-xl text-gray-600 text-center max-w-2xl mx-auto">
             Transforming how people interact with and understand PDF documents
@@ -94,10 +97,21 @@ const AboutPage: React.FC = () => {
             Start extracting insights from your PDFs today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-6 py-3 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition-colors">
+            <Link
+              className="px-6 py-3 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition-colors"
+              href="/sign-up"
+            >
               Try for Free
-            </button>
-            <button className="px-6 py-3 bg-gray-100 text-gray-600 font-semibold rounded-lg hover:bg-gray-200 transition-colors">
+            </Link>
+            <button
+              onClick={() => {
+                window.open(
+                  "https://github.com/choudharyabhishekk/ai-pdf",
+                  "_blank"
+                );
+              }}
+              className="px-6 py-3 bg-gray-100 text-gray-600 font-semibold rounded-lg hover:bg-gray-200 transition-colors"
+            >
               Star on GitHub
             </button>
           </div>

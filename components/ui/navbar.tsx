@@ -1,13 +1,10 @@
-"use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function Navbar() {
-  const router = useRouter();
   return (
-    <nav className="fixed w-full rounded-xl mx-auto bg-white/80 backdrop-blur-sm z-50 border-b">
+    <nav className="sticky top-0 w-full rounded-xl mx-auto bg-white/80 backdrop-blur-sm z-50 border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div className="flex items-center">
@@ -23,21 +20,28 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="flex items-center space-x-4">
-            <a href="#features" className="text-gray-600 hover:text-gray-900">
+            <Link
+              href="#features"
+              className="text-gray-600 hover:text-gray-900"
+            >
               Features
-            </a>
-            <a href="#pricing" className="text-gray-600 hover:text-gray-900">
+            </Link>
+            <Link
+              href="/#pricing"
+              className="text-gray-600 hover:text-gray-900"
+            >
               Pricing
-            </a>
-            <a href="#" className="text-gray-600 hover:text-gray-900">
+            </Link>
+            <Link href="/about" className="text-gray-600 hover:text-gray-900">
               About
-            </a>
-            <button
+            </Link>
+            {/* bg-gradient-to-br from-red-500 to-red-800 */}
+            <Link
               className="bg-gradient-to-br from-red-500 to-red-800 text-white px-4 py-2 rounded-full"
-              onClick={() => router.push("/sign-in")}
+              href="/sign-in"
             >
               Get Started
-            </button>
+            </Link>
           </div>
         </div>
       </div>
