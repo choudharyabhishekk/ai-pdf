@@ -27,15 +27,15 @@ export default function Home() {
   return (
     <main className="max-w-6xl mx-auto p-8 ">
       {/* Hero Section */}
-      <section id="hero" className="flex flex-col items-center space-y-4  mb-7">
-        <h1 className="text-4xl lg:text-5xl font-medium">
+      <section id="hero" className="flex flex-col items-center space-y-3 mb-7">
+        <h1 className="text-4xl lg:text-5xl font-medium ">
           Chat with any{" "}
           {/* <span className="bg-gradient-to-r from-red-400 to-pink-500 text-transparent bg-clip-text"> */}
           <span className=" bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text">
             PDF & take notes
           </span>
         </h1>
-        <p className="text-base text-gray-600">
+        <p className="text-lg text-gray-600">
           Extract insights, take notes, and understand complex documents with
           AI.
         </p>
@@ -69,7 +69,7 @@ export default function Home() {
           className="mx-auto rounded-lg border "
         />
 
-        <p className="text-base text-gray-600 text-center my-10">
+        <p className="text-lg text-gray-600 text-center my-10">
           Trusted by students and researchers from top institutions
         </p>
         <div className="flex flex-row items-center justify-center w-full ">
@@ -84,7 +84,7 @@ export default function Home() {
             <h2 className="text-4xl lg:text-5xl font-medium mb-4">
               Powerful Features
             </h2>
-            <p className="text-gray-600">
+            <p className="text-lg text-gray-600">
               Everything you need to analyze and understand your PDF documents
               more effectively
             </p>
@@ -132,7 +132,7 @@ export default function Home() {
         <h2 className="text-4xl lg:text-5xl font-medium mb-4 text-center">
           Pricing
         </h2>
-        <p className="text-center mt-2 text-gray-600">
+        <p className="text-center mt-2 text-lg text-gray-600">
           Choose the perfect plan for your document management needs
         </p>
         <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
