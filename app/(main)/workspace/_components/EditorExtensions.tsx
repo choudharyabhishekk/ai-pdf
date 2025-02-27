@@ -18,6 +18,8 @@ import {
   Heading1,
   Heading2,
   SaveIcon,
+  Sparkles,
+  SparklesIcon,
 } from "lucide-react";
 import { chatSession } from "@/configs/AIModel";
 import { Button } from "@/components/ui/button";
@@ -198,26 +200,11 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
           duration: 100,
           placement: "top",
         }}
-        className="flex gap-1 rounded-full bg-white rounded-xl shadow-sm hover:cursor-pointer"
+        className="flex gap-1 rounded-full bg-gray-800 opacity-95 rounded-xl shadow-xl hover:cursor-pointer"
       >
-        <button
-          className="relative inline-flex h-9 overflow-hidden rounded-full p-[2px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50"
-          onClick={() => handleAIClick()}
-        >
-          <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-          <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-white px-3 py-1 text-sm font-medium text-slate-950 backdrop-blur-3xl">
-            Ask AI
-          </span>
+        <button onClick={() => handleAIClick()} className=" gap-2 p-2 px-3">
+          <span className="text-white">Ask AI</span>
         </button>
-
-        {/* <Button
-          variant="ghost"
-          className="rounded-pill border hover:cursor-pointer"
-          onClick={() => handleAIClick()}
-        >
-          <Sparkles size="10" />
-          Ask AI
-        </Button> */}
       </BubbleMenu>
 
       {/* Main Toolbar */}

@@ -32,6 +32,6 @@
     "convex/fileStorage.js",
     "convex/schema.js",
     "app/api/payment/webhook/route.js"
-  ],
+, "app/(main)/workspace/loading.tsx", "app/(main)/dashboard/loading.tsx",  ],
   "exclude": ["node_modules"]
 }

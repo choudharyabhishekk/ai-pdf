@@ -10,6 +10,8 @@ import {
   ChevronRight,
   FileText,
   Github,
+  ScanText,
+  WandSparkles,
   XIcon,
   Zap,
 } from "lucide-react";
@@ -90,7 +92,7 @@ export default function Home() {
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white border border-gray-100 p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow">
+            <div className="bg-white border border-gray-100 p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow cursor-pointer">
               <div className="bg-indigo-50 w-12 h-12 flex items-center justify-center rounded-lg mb-4">
                 <FileText className="h-6 w-6 text-indigo-500" />
               </div>
@@ -102,9 +104,9 @@ export default function Home() {
                 ready for interactive conversations.
               </p>
             </div>
-            <div className="bg-white  border border-gray-100 p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow">
+            <div className="bg-white  border border-gray-100 p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow cursor-pointer">
               <div className="bg-sky-50 w-12 h-12 flex items-center justify-center rounded-lg mb-4">
-                <Brain className="h-6 w-6 text-sky-500" />
+                <WandSparkles className="h-6 w-6 text-sky-500" />
               </div>
               <h3 className="text-xl font-semibold mb-2">AI-Powered Chat</h3>
               <p className="text-gray-600">
@@ -112,9 +114,9 @@ export default function Home() {
                 responses based on the content.
               </p>
             </div>
-            <div className="bg-white  border border-gray-100 p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow">
+            <div className="bg-white  border border-gray-100 p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow cursor-pointer">
               <div className="bg-indigo-50 w-12 h-12 flex items-center justify-center rounded-lg mb-4">
-                <Zap className="h-6 w-6 text-indigo-500" />
+                <ScanText className="h-6 w-6 text-indigo-500" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Smart Notes</h3>
               <p className="text-gray-600">
@@ -254,7 +256,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section id="cta" className="py-10">
-        <div className="max-w-7xl mx-auto bg-gradient-to-tl from-blue-400 via-indigo-500 to-[#7e70fd] rounded-3xl ">
+        <div className="max-w-7xl mx-auto bg-gradient-to-tl from-blue-400 via-indigo-500 to-[#7e70fd] rounded-2xl ">
           <div className="rounded-2xl p-12 lg:py-24  text-center  text-white shadow-md ">
             <h2 className="text-4xl tracking-tight lg:text-5xl font-medium mb-6 leading-normal">
               Ready to transform your <br /> note taking experience?

@@ -26,7 +26,7 @@ export default function Navbar() {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-4">
             <Link
-              href="#features"
+              href="/#features"
               className="text-gray-600 hover:text-gray-900"
             >
               Features
@@ -82,7 +82,7 @@ export default function Navbar() {
                 About
               </Link>
               <Link
-                className="block bg-gradient-to-br from-red-500 to-red-800 text-white px-4 py-2 rounded-full w-full text-center"
+                className=" bg-gradient-to-br from-red-500 to-red-800 text-white px-4 py-2 rounded-full w-full text-center"
                 href="/sign-in"
               >
                 Get Started

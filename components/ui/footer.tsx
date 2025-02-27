@@ -73,7 +73,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/login" className="hover:text-gray-900">
+                <Link href="/sign-in" className="hover:text-gray-900">
                   Login
                 </Link>
               </li>
