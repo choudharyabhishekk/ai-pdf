@@ -18,6 +18,7 @@ import {
 import Image from "next/image";
 import people from "./data/reviews";
 import { useRouter } from "next/navigation";
+import { Features } from "@/components/ui/features";
 
 export default function Home() {
   const router = useRouter();
@@ -32,7 +33,6 @@ export default function Home() {
       <section id="hero" className="flex flex-col items-center space-y-3 mb-7">
         <h1 className="text-4xl lg:text-5xl font-medium ">
           Chat with any{" "}
-          {/* <span className="bg-gradient-to-r from-red-400 to-pink-500 text-transparent bg-clip-text"> */}
           <span className=" bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text">
             PDF & take notes
           </span>
@@ -91,45 +91,11 @@ export default function Home() {
               more effectively
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white border border-gray-100 p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow cursor-pointer">
-              <div className="bg-indigo-50 w-12 h-12 flex items-center justify-center rounded-lg mb-4">
-                <FileText className="h-6 w-6 text-indigo-500" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">
-                Smart PDF Processing
-              </h3>
-              <p className="text-gray-600">
-                Upload any PDF and our AI will analyze its content, making it
-                ready for interactive conversations.
-              </p>
-            </div>
-            <div className="bg-white  border border-gray-100 p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow cursor-pointer">
-              <div className="bg-sky-50 w-12 h-12 flex items-center justify-center rounded-lg mb-4">
-                <WandSparkles className="h-6 w-6 text-sky-500" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">AI-Powered Chat</h3>
-              <p className="text-gray-600">
-                Ask questions about your documents and get instant, accurate
-                responses based on the content.
-              </p>
-            </div>
-            <div className="bg-white  border border-gray-100 p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow cursor-pointer">
-              <div className="bg-indigo-50 w-12 h-12 flex items-center justify-center rounded-lg mb-4">
-                <ScanText className="h-6 w-6 text-indigo-500" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Smart Notes</h3>
-              <p className="text-gray-600">
-                Create and organize notes with AI-suggested summaries and key
-                points from your documents.
-              </p>
-            </div>
-          </div>
+          <Features />
         </div>
       </section>
 
       {/* Pricing */}
-
       <section id="pricing" className="py-10 bg-blue/100 backdrop-blur-sm">
         <h2 className="text-4xl lg:text-5xl font-medium mb-4 text-center">
           Pricing

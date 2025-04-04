@@ -30,8 +30,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     // Split text into chunks
     const splitter = new RecursiveCharacterTextSplitter({
       // earlier this was 1000
-      chunkSize: 500,
-      chunkOverlap: 20,
+      chunkSize: 1000,
+      chunkOverlap: 200,
     });
     const output = await splitter.createDocuments([pdfContent]);
 

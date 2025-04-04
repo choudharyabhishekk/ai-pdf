@@ -28,7 +28,6 @@ import { api } from "@/convex/_generated/api";
 import { useParams } from "next/navigation";
 import { toast } from "sonner";
 import { useUser } from "@clerk/nextjs";
-import AiICON from "@/components/ui/ai-icon";
 
 interface EditorExtensionsProps {
   editor: Editor | null;
@@ -109,34 +108,36 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
       unformattedResult.forEach((item: any) => {
         answer = answer + item.pageContent;
       });
-    const maxLength = 1500;
+    const maxLength = 2000;
     console.log("Answer from DB:", answer);
 
-    // const prompt = `
-    // Please provide a formatted answer based on the following:
+    const prompt = `
+  You are a PDF content analyzer. Your task is to answer a question using ONLY information from the provided PDF content.
 
-    // Question: ${selectedText}
+  QUESTION: ${selectedText}
 
-    // Content to use as answer: ${answer}
+  PDF CONTENT:
+  ${answer}
 
-    // Requirements:
-    // - Return only the answer content, don't return the question again.
-    // - Use HTML formatting (excluding html/head/body tags)
-    // - Maximum response length: ${maxLength} characters
-    // - Format using: <h2>, <p>, <ul>/<li>, <strong>, <em> tags as appropriate
-    // - Include relevant examples if available
-    // - If technical terms are used, provide brief explanations
+  INSTRUCTIONS:
+  1. If the PDF content directly answers the question, create a clear, concise answer using ONLY facts from the PDF.
+  2. If multiple sections are relevant, synthesize them into a coherent answer.
+  3. Include page numbers as references when available: e.g., "According to page 5..."
+  4. If the PDF doesn't contain relevant information, respond with: "<i>The PDF does not contain the answer to this question!</i><br/><b>From general knowledge:</b>" followed by a brief general answer.
+  5. Format your answer with HTML tags: <h3>, <p>, <ul>/<li>, <strong>, <em> for readability.
+  6. Maximum length: ${maxLength} characters.
+  7. DO NOT repeat the question in your answer.
+  8. DO NOT include information not found in the PDF unless explicitly stating it's from general knowledge.
+  
+  Answer:
+  `;
 
-    // If the content use as answer is not relevant or empty, respond with:
-    // "Warning: The PDF does not contain the answer to this question!<br/>Here's a general answer based on available knowledge:"
-    // `.trim();
-
-    const prompt =
-      "For question: " +
-      selectedText +
-      " and with the given content as answer, please give appropriate answer in HTML format with proper formatting and without html, head, and body tags. Also don't return the question, just provide the answer. The answer content is: " +
-      answer +
-      "If the answer content is blank, respond with with a warning: The PDF does not contain the answer to this question! <br/> From the web: give the answer by yourself with proper formatting.";
+    // const prompt =
+    //   "For question: " +
+    //   selectedText +
+    //   " and with the given content as answer, please give appropriate answer in HTML format with proper formatting and without html, head, and body tags. Also don't return the question, just provide the answer. The answer content is: " +
+    //   answer +
+    //   "If the answer content is blank, respond with with a warning: The PDF does not contain the answer to this question! <br/> From the web: give the answer by yourself with proper formatting.";
 
     try {
       const aiAnswer = await chatSession.sendMessage(prompt);
@@ -154,13 +155,6 @@ const EditorExtensions: React.FC<EditorExtensionsProps> = ({ editor }) => {
         )
         .run();
 
-      // const existingFileText = editor.getHTML();
-      // editor.commands.setContent(
-      //   existingFileText +
-      //     "<p><strong>Answer: </strong>" +
-      //     aiAnswer.response.text().replace("```html", "").replace("```", "") +
-      //     "</p>"
-      // );
       saveNotes();
     } catch (error: unknown) {
       if (
