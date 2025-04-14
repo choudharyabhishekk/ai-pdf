@@ -118,7 +118,13 @@ export default function AppSidebar() {
       </SidebarContent>
 
       <SidebarFooter className="px-4 py-6 mt-auto ">
-        <div className="space-y-2 border border-gray-200 shadow-xs p-3 rounded-lg ">
+        <div
+          className={
+            !proMember.isProMember
+              ? `bg-red-100 space-y-2 border border-gray-200 shadow-xs p-3 rounded-lg `
+              : ` space-y-2 border text-muted-foreground border-gray-200 shadow-xs p-3 rounded-lg `
+          }
+        >
           <Progress
             value={
               proMember.isProMember
@@ -127,14 +133,12 @@ export default function AppSidebar() {
             }
             className="h-2 "
           />
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm ">
             {files?.length} out of {proMember.isProMember ? "unlimited" : "2"}{" "}
             PDF Uploaded
           </p>
           {!proMember.isProMember && (
-            <p className="text-sm text-muted-foreground">
-              Upgrade to Upload more PDF
-            </p>
+            <p className="text-sm font-semibold">Upgrade to Upload more PDFs</p>
           )}
         </div>
         <Separator className="border border-gray-100 shadow-xs my-2 mx-2" />

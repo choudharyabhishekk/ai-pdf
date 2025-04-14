@@ -7,7 +7,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 w-full rounded-xl mx-auto bg-white/80 backdrop-blur-sm z-50 border-b">
+    <nav className="sticky top-0 w-full  mx-auto bg-white/80 backdrop-blur-sm z-50 border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div className="flex items-center">
@@ -27,21 +27,24 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-4">
             <Link
               href="/#features"
-              className="text-gray-600 hover:text-gray-900"
+              className="text-gray-600 hover:text-gray-900 hover:border-b-2"
             >
               Features
             </Link>
             <Link
               href="/#pricing"
-              className="text-gray-600 hover:text-gray-900"
+              className="text-gray-600 hover:text-gray-900 hover:border-b-2"
             >
               Pricing
             </Link>
-            <Link href="/about" className="text-gray-600 hover:text-gray-900">
+            <Link
+              href="/about"
+              className="text-gray-600 hover:text-gray-900 hover:border-b-2"
+            >
               About
             </Link>
             <Link
-              className="bg-gradient-to-br from-red-500 to-red-800 text-white px-4 py-2 rounded-full"
+              className="bg-gradient-to-br from-red-500 to-pink-600 text-white px-4 py-2 rounded-full hover:shadow-xl transform hover:-translate-y-0.5 transition duration-300"
               href="/sign-in"
             >
               Get Started
